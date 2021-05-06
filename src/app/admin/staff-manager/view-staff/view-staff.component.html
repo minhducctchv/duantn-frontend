@@ -1,0 +1,106 @@
+<div id="webpage">
+    <div class="container-fluid">
+        <div class="row" style="margin-left: -250px;">
+            <main role="main" class="ml-sm-auto col-lg-10" >
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Quản Lý Nhân Viên</h1>
+
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div id="hic">
+                            <div id="demo-2" >
+                                <input class="search" type="search" placeholder="Tìm kiếm nhân viên" (keyup)="onChange($event)" style="border: 1px solid #e6e6e6;">
+                            </div>
+                        </div>
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Lọc theo trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" (click)="getAllStaff('')">Tất cả</button>
+                                <button class="dropdown-item" (click)="getAllStaff('false')">Hoạt động</button>
+                                <button class="dropdown-item" (click)="getAllStaff('true')">Đã khóa</button>
+                            </div>
+                        </div>
+                        <!-- BUTTON THÊM NHÂN VIÊN -->
+                        <a class="btn btn-success btn-sm d-none d-md-block" routerLink="create-staff">Thêm nhân
+                            viên</a>
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table_post_listing table-bordered _table-hover">
+                            <thead>
+                                <tr>
+                                    <th [ngStyle]="{'text-align': 'center'}">Mã nhân viên</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Họ tên</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Email</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Địa Chỉ</th>
+                                    <!-- <th [ngStyle]="{'text-align': 'center'}">Tuổi</th> -->
+                                    <th [ngStyle]="{'text-align': 'center'}">Giới Tính</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Vai Trò</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Trạng Thái</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ảnh</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let staff of staffsFilter">
+                                    <td [ngStyle]="{'text-align': 'center'}">#{{staff.staffId}}
+                                        <!-- <br>
+                                        <input type="checkbox" style="border-radius: 10px;"> -->
+                                    </td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{staff.name}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{staff.email}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{staff.address}}</td>
+                                    <!-- <td [ngStyle]="{'text-align': 'center'}">{{staff.birthday | date:'dd/MM/yyyy'}}</td> -->
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.gender == true">Nam</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.gender == false">Nữ</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.role == true">Super Admin</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.role == false">Admin</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.deleted == true" [ngStyle]="{'color':'red'}">Đang khóa</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="staff.deleted == false" [ngStyle]="{'color':'green'}">Hoạt động</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <img style="width: 80px; height: 100px; padding-top: 10px;"  src="{{staff.image}}"/>
+                                    </td>
+
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <a routerLink="detail-staff/{{staff.staffId}}" class="view" title="View"
+                                            data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                        <a routerLink="update-staff/{{staff.staffId}}" class="edit" title="Edit"
+                                            data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <!-- <a routerLink="../staff" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons"
+                                                (click)="deleteStaff(staff.staffId)">&#xE872;</i></a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item" *ngFor="let item of arrayPage">
+                                  <a class="page-link" routerLink="/admin/staff" (click)="onPage(item)">{{item+1}}</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div><!-- end webpage -->

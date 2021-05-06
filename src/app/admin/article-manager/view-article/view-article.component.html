@@ -1,0 +1,110 @@
+
+    <div class="container-fluid">
+        <div class="row" style="margin-left: -250px;">
+            <main role="main" class="ml-sm-auto col-lg-10" style="margin-top: -40px;">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Quản lý Bài đăng</h1>
+
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div id="hic">
+                            <div id="demo-2" >
+                                <input class="search" type="search" placeholder="Tìm kiếm bài đăng" style="border: 1px solid #e6e6e6;">
+                            </div>
+                        </div>
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Lọc theo trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" (click)="getAllArticle('')">Tất cả</button>
+                                <button class="dropdown-item" (click)="getAllArticle('uncheck')">Chưa duyệt</button>
+                                <button class="dropdown-item" (click)="getAllArticle('active')">Đang đăng</button>
+                                <button class="dropdown-item" (click)="getAllArticle('hidden')">Đã ẩn</button>
+                                <button class="dropdown-item" (click)="getAllArticle('expired')">Hết hạn</button>
+                                <button class="dropdown-item" (click)="getAllArticle('suggest-fix')">Yêu cầu sửa lại</button>
+                            </div>
+                        </div>
+                        <!-- BUTTON THÊM NHÂN VIÊN -->
+                        <a class="btn btn-success btn-sm d-none d-md-block" routerLink="/admin/article">Tìm kiếm</a>
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table_post_listing table-bordered _table-hover">
+                            <thead>
+                                <tr>
+                                    <th [ngStyle]="{'text-align': 'center'}">Mã tin</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ảnh đại diện</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Tiêu đề
+                                        <br/>
+                                        (Ấn để xem chi tiết bài viết)
+                                    </th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Giá</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ngày bắt đầu</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ngày hết hạn</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Trạng thái</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let article of article | paginate: { itemsPerPage: 10, currentPage: page }">
+                                    <td [ngStyle]="{'text-align': 'center'}">#{{article.articleId}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" routerLink="detail-article/{{article.articleId}}">
+                                        <div class="post_thumb"><img src={{article?.image}}></div>
+                                    </td>
+                                    <td>
+                                        <a class="post_title" routerLink="detail-article/{{article.articleId}}"
+                                            style="color: #055699;">{{article?.title}}
+                                        </a>
+                                        <span class="badge badge-pill badge-warning" *ngIf="article.roommate == null">Phòng trọ</span>
+                                        <span class="badge badge-pill badge-warning" *ngIf="article.roommate != null">Ở ghép</span>
+                                        <span style="display: block; color: #999; margin-top: 10px;">
+                                            Cập nhật gần nhất: {{article?.lastUpdateTime | date:'dd/MM/yyyy'}}
+                                        </span>
+                                    </td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <div class="post_price">{{article.roomPrice}}</div>
+                                    </td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{article.createTime | date:'dd/MM/yyyy - HH:mm'}}</td> 
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="article.expDate != null">{{article.expDate | date:'dd/MM/yyyy - HH:mm'}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="article.expDate == null">-------</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <span class="text text-warning" style="white-space: nowrap;">{{article?.status}}</span>
+                                    </td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <a routerLink="detail-article/{{article.articleId}}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                        <!-- <a routerLink="update-article/{{article.articleId}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                                        <!-- <a routerLink="../staff" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <!-- <ul class="pagination">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item" *ngFor="let item of arrayPage">
+                                  <a class="page-link" routerLink="/admin/article" (click)="onPage(item)">{{item+1}}</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul> -->
+                            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                          </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>

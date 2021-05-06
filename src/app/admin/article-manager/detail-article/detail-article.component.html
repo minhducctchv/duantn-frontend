@@ -1,0 +1,434 @@
+<div class="container-fluid">
+    <!-- <div class="row"> -->
+    <main role="main" class="ml-sm-auto ">
+        <div class="row">
+            <div class="col-md-8">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1>CHI TIẾT BÀI ĐĂNG</h1>
+                </div>
+                <!-- <p>"Gia hạn tin" là chức năng giúp hiển thị lại tin rao cũ bạn đã ẩn trước đó mà không cần soạn lại nội dung. Tin sau khi gia hạn sẽ hiện ở "trang danh sách tin" như một tin mới.</p> -->
+                <form class="form-horizontal frm-manage-post js-frm-manage-post" id="form_dangtin"
+                    [formGroup]="articleForm">
+                    <h2 style="color: #111111;">{{article?.title}}</h2>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Địa chỉ cho thuê</h3>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="province_id" class="col-form-label">Tỉnh/Thành phố</label>
+                                        <label id="province_id" name="province_id"
+                                            class="form-control js-select-tinhthanhpho select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Tỉnh/TP" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.location.cityName}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="district_id">Quận/Huyện</label>
+                                        <label name="district_id" id="district_id"
+                                            class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Quận/Huyện" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.location.districtName}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="phuongxa">Phường/Xã</label>
+                                        <label class="form-control js-select-phuongxa select2-hidden-accessible"
+                                            name="phuongxa" id="phuongxa" tabindex="-1" aria-hidden="true">
+                                            {{article?.location.wardName}}
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="diachi" class="col-form-label">Địa chỉ chính xác</label>
+                                        <label ype="text" class="form-control" name="dia_chi" id="diachi" tabindex="-1">
+                                            {{article?.location.wardName}}, {{article?.location.districtName}},
+                                            {{article?.location.cityName}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Bản đồ <span
+                                                class="red_require">(*)</span></label>
+                                        <p>Vị trí tin bài trên bản đồ
+                                        </p>
+                                        <div id="maps"
+                                            style="width: 100%; height: 300px; position: relative; overflow: hidden; border: 1px solid red;">
+                                            <!-- <agm-map [zoom]="13" [latitude]="latitude" [longitude]="longitude">
+                                                <agm-marker [latitude]="latitude" [longitude]="longitude">
+                                                    <agm-info-window><strong>{{article?.location.wardName}}, {{article?.location.districtName}}, {{article?.location.cityName}}</strong></agm-info-window>
+                                                </agm-marker>
+                                            </agm-map> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mt-5">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Thông tin mô tả</h3>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="post_content" class="col-md-12 col-form-label">Nội dung mô tả</label>
+                                <div class="col-md-12">
+                                    <div class="form-control" name="noi_dung" id="post_content" style="height: 250px;
+                                        overflow: auto;
+                                        border: 1px solid #CCCCCC;
+                                        margin: 1em 0;" disabled [innerHTML]="article?.description">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- // PHẦN NGƯỜI DÙNG? -->
+                            <hr />
+                            <div class="form-group row mt-5">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Liên hệ người đăng tin</h3>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="province_id" class="col-form-label">Họ tên</label>
+                                        <label id="province_id" name="province_id"
+                                            class="form-control js-select-tinhthanhpho select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Tỉnh/TP" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.customer.name}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="district_id">Email</label>
+                                        <label name="district_id" id="district_id"
+                                            class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Quận/Huyện" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.customer.email}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="phuongxa">Số điện thoại</label>
+                                        <label class="form-control js-select-phuongxa select2-hidden-accessible"
+                                            name="phuongxa" id="phuongxa" tabindex="-1" aria-hidden="true">
+                                            {{article?.customer.phone}}
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- // DỊCH VỤ -->
+                            <hr />
+                            <div class="form-group row mt-5">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Thông tin chi tiết</h3>
+                                </div>
+                            </div>
+
+                            <!-- GIÁ PHÒNG -->
+                            <div class="form-group row">
+                                <label for="giachothue" class="col-md-12 col-form-label">Giá cho thuê</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <label id="giachothue" name="gia" pattern="[0-9.]+" type="text" value="1200000"
+                                            class="form-control" required="" data-msg-required="Bạn chưa nhập giá phòng"
+                                            data-msg-min="Giá phòng chưa đúng" tabindex="-1">
+                                            {{article?.roomPrice}}
+                                        </label>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"> Triệu / Tháng</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <label for="text_giachothue" id="text_giachothue"
+                                        class="col-sm-12 control-label js-number-text" style="color: #0d9832;">
+                                        một triệu hai trăm nghìn đồng/tháng</label> -->
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="post_acreage" class="col-md-12 col-form-label">Diện tích</label>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <label id="post_acreage" type="number" attern="[0-9.]+" name="dien_tich"
+                                            max="1000" value="25" class="form-control" required=""
+                                            data-msg-required="Bạn chưa nhập diện tích" tabindex="-1">
+                                            {{article?.acreage}}
+                                        </label>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">m<sup>2</sup></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <!-- GIÁ ĐIỆN -->
+                                    <div class="form-group">
+                                        <label for="province_id" class="col-form-label">Giá điện</label>
+                                        <label id="province_id" name="province_id"
+                                            class="form-control js-select-tinhthanhpho select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Tỉnh/TP" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.service.electricPrice}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <!-- GIÁ NƯỚC -->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="district_id">Giá nước</label>
+                                        <label name="district_id" id="district_id"
+                                            class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                            required="" data-msg-required="Chưa chọn Quận/Huyện" tabindex="-1"
+                                            aria-hidden="true">
+                                            {{article?.service.waterPrice}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- GIÁ WIFFI -->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="phuongxa">Giá Wifi</label>
+                                        <label class="form-control js-select-phuongxa select2-hidden-accessible"
+                                            name="phuongxa" id="phuongxa" tabindex="-1" aria-hidden="true">
+                                            {{article?.service.wifiPrice}}
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group row mt-5">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Hình ảnh</h3>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="list_photos row dropzone-previews" id="list-photos-dropzone-previews">
+                                        <div class="photo_item col-md-2 col-3 js-photo-manual"
+                                            *ngFor="let image of article?.image; let i=index">
+                                            <div class="photo"><img src="{{image}}">
+                                            </div>
+                                            <div class="dz-progress"><span class="dz-upload"></span></div>
+                                            <div class="bottom clearfix">
+                                                <span class="photo_delete" data-dz-remove="">
+                                                    Ảnh {{i+1}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="photo_item col-md-2 col-3 js-photo-manual">
+                                            <div class="photo"><img src="{{article?.image}}"> </div>
+                                            <div class="dz-progress"><span class="dz-upload"></span></div>
+                                            <div class="bottom clearfix">
+                                                <span class="photo_delete" data-dz-remove="">
+                                                    Ảnh 2
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="photo_item col-md-2 col-3 js-photo-manual">
+                                            <div class="photo"><img src="{{article?.image}}"> </div>
+                                            <div class="dz-progress"><span class="dz-upload"></span></div>
+                                            <div class="bottom clearfix">
+                                                <span class="photo_delete" data-dz-remove="">
+                                                    Ảnh 3
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr />
+
+
+                            <div class="form-group row mt-5">
+                                <div class="col-md-12">
+                                    <h3 style="font-size: 1.75rem; color: #111111;">Video</h3>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="youtube_url" class="col-md-12 col-form-label">Video Link
+                                    (Youtube)</label>
+                                <div class="col-md-12">
+
+                                    <a class="form-control" name="youtube_url" id="youtube_url"
+                                        href="{{article?.video}}" target="_blank">
+                                        Link video chi tiết phòng trọ (ấn để xem)
+                                    </a>
+
+                                    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/BdPk9ipvczM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- NGƯỜI Ở GHÉP -->
+                            <div *ngIf="article?.roommate?.roommateId !== null" class="nguoiOghep"
+                                style="border: 2px double #C0C0C0; padding-left: 19px;">
+                                <div class="form-group row mt-5">
+                                    <div class="col-md-12">
+                                        <h3 style="font-size: 1.75rem; color: #111111;">Bạn cùng phòng</h3>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="province_id" class="col-form-label">Giới tính</label>
+                                            <label id="province_id" name="province_id"
+                                                *ngIf="article?.roommate?.gender == true"
+                                                class="form-control js-select-tinhthanhpho select2-hidden-accessible"
+                                                tabindex="-1" aria-hidden="true">
+                                                Nam giới
+                                            </label>
+                                            <label id="province_id" name="province_id"
+                                                *ngIf="article?.roommate?.gender == false"
+                                                class="form-control js-select-tinhthanhpho select2-hidden-accessible"
+                                                tabindex="-1" aria-hidden="true">
+                                                Nữ giới
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="district_id">Số lượng</label>
+                                            <label name="district_id" id="district_id"
+                                                class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                                required="" data-msg-required="Chưa chọn Quận/Huyện" tabindex="-1"
+                                                aria-hidden="true">
+                                                {{article?.roommate?.quantity}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="district_id">Miêu tả</label>
+                                            <label name="district_id" id="district_id"
+                                                class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                                required="" data-msg-required="Chưa chọn Quận/Huyện" tabindex="-1"
+                                                aria-hidden="true">
+                                                {{article?.roommate?.description}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <br>
+                            <div class="form-group row" >
+                                <button style="margin-left: 12px;" type="button" class="btn btn-success" *ngIf="article?.status == 'Chưa duyệt'"
+                                    (click)="active()">Duyệt bài</button>
+                                <button style="margin-left: 12px;" type="button" class="btn btn-info"
+                                    *ngIf="article?.status == 'Đang đăng' || article?.status == 'Chưa duyệt'"
+                                    (click)="suggestFix()">Yêu cầu sửa bài</button>
+                                <button style="margin-left: 12px;" type="button" class="btn btn-secondary" *ngIf="article?.status == 'Đang đăng'"
+                                    (click)="hidden()">Ẩn bài</button>
+                                <div class="loader" *ngIf="isLoading"></div>
+                            </div>
+
+                            <!-- reply to hide posts -  phản hồi ẩn bài viết -->
+                            <div class="nguoiOghep" style="border: 2px double #C0C0C0; padding-left: 23px;
+                            margin-right: 88px;">
+                                <!-- <div class="form-group row mt-5"> -->
+                                    <div style="    margin-top: 18px;" class="col-md-12">
+                                        <h3 style="color: #111111; margin-left: 99px; ">Nội dung gửi Eamil phản hồi đến người dùng</h3>
+                                    </div>
+                                <!-- </div> -->
+                                <div class="row mt-3">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="district_id">Mô tả cho người dùng</label>
+                                            <textarea style="height: 103px; width: 547px;" name="district_id" id="district_id"
+                                                class="form-control js-select-quanhuyen select2-hidden-accessible"
+                                                aria-hidden="true">
+                                                {{article?.roommate?.description}}
+                                             </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button style="background: #990000; margin-top: -6px;
+                                margin-bottom: 15px; margin-left: 437px;"
+                                type="button" class="btn btn-info">Gửi phản hồi</button>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ô thông tin thanh toán bên trái -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông tin thanh toán</h4>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Loại tin:</td>
+                                    <td class="js-package-title" *ngIf="article?.vip == false">Tin thường</td>
+                                    <td class="js-package-title" *ngIf="article?.vip == true">Tin Vip</td>
+                                </tr>
+                                <tr>
+                                    <td>Gói thời gian:</td>
+                                    <td class="js-time-type" *ngIf="article?.type == 'day'">Đăng theo ngày</td>
+                                    <td class="js-time-type" *ngIf="article?.type == 'week'">Đăng theo tuần</td>
+                                    <td class="js-time-type" *ngIf="article?.type == 'month'">Đăng theo tháng</td>
+                                </tr>
+                                <tr>
+                                    <td>Đơn giá:</td>
+                                    <td class="js-package-price">{{article?.price}}/ngày</td>
+                                </tr>
+                                <!-- <tr class="js-use-label hidden">
+                                    <td>Gắn nhãn:</td>
+                                    <td>2.000 đ/ngày</td>
+                                </tr> -->
+                                <tr>
+                                    <td>Ngày Tạo:</td>
+                                    <td class="js-package-days">{{article?.createTime | date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày hết hạn</td>
+                                    <td class="js-package-deadline">{{article?.expDate | date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">Thành tiền:</td>
+                                    <td><span style="font-size: 30px; font-weight: bold; color: #F90;"
+                                            class="js-package-grand-total">{{article?.amount}}đ</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+<!-- </div> -->

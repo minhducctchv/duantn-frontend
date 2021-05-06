@@ -1,0 +1,100 @@
+<div id="webpage">
+    <div class="container-fluid">
+        <div class="row" style="margin-left: -250px;">
+            <main role="main" class="ml-sm-auto col-lg-10" >
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Quản lý người dùng</h1>
+
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div id="hic">
+                            <div id="demo-2">
+                                <input  class="search" type="search" placeholder="Tìm kiếm" (keyup)="onChange($event)" style="border: 1px solid #e6e6e6;">
+                            </div>
+                        </div>
+
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Lọc theo trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" (click)="getAllCustomer()">Tất cả</button>
+                                <button class="dropdown-item" (click)="getAllActiveOrHiddenCustomer(false)">Hoạt động</button>
+                                <button class="dropdown-item" (click)="getAllActiveOrHiddenCustomer(true)">Đã khóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table_post_listing table-bordered _table-hover">
+                            <thead>
+                                <tr>
+                                    <th [ngStyle]="{'text-align': 'center'}">ID người dùng</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Họ tên</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Email</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Số dư TK</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">SĐT</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Giới tính</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Trạng thái</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ảnh đại diện</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let customer of customers">
+                                    <!--// customers lấy từ class view-customer.components.ts -->
+                                    <td [ngStyle]="{'text-align': 'center'}">#{{customer?.customerId}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{customer?.name}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{customer?.email}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{customer?.accountBalance}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">{{customer?.phone}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="customer?.gender == true">Nam</td>
+                                    <td [ngStyle]="{'text-align': 'center'}" *ngIf="customer?.gender == false">Nữ</td>
+                                    <td *ngIf="customer?.deleted == true" [ngStyle]="{'color':'red', 'text-align': 'center'}">Đang khóa</td>
+                                    <td *ngIf="customer?.deleted == false" [ngStyle]="{'color':'green', 'text-align': 'center'}">Hoạt động</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <div class="post_thumb">
+                                            <img src={{customer?.image}}>
+                                        </div>
+                                    </td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <a routerLink="detail-customer/{{customer?.customerId}}" class="view"
+                                            title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <!-- <a routerLink="create-customer" class="edit" title="Edit"
+                                            data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                                        <!-- <a routerLink="../customer" class="delete" title="Delete"
+                                            data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item" *ngFor="let item of arrayPage">
+                                  <a class="page-link" routerLink="/admin/customer" (click)="onPage(item)">{{item+1}}</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div><!-- end webpage -->

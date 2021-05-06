@@ -1,0 +1,72 @@
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="side-bar">
+                    <div class="user-info">
+                      <!-- ẢNH -->
+                        <img class="img-profile img-circle img-responsive center-block" src="{{news?.image}}" alt="">
+                    </div>
+                </div>
+                <div class="content-panel">
+                    <h1 class="title">CHI TIẾT BÀI VIẾT</h1>
+
+                    <div class="form-group">
+                        <!-- <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                            <button class="btn btn-primary" type="submit">Update Profile</button>
+                        </div> -->
+                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                            <button class="btn btn-success" type="submit" *ngIf="news?.deleted == true" (click)="activeNews()" [ngStyle]="{'margin-right':'10px'}">Kích hoạt bài viết</button>
+                            <button class="btn btn-danger" type="submit" *ngIf="news?.deleted == false" (click)="hiddenNews()">Ẩn bài viết</button>
+                        </div>
+                      </div>
+
+                    <form class="form-horizontal" [formGroup]="newsPaperForm">
+                        <fieldset class="fieldset">
+                            <!-- <h3 class="fieldset-title">Thông tin cá nhân</h3> -->
+                            <!-- Mã bài viết -->
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-3 col-xs-12 control-label">Mã bài viết</label> 
+                              <div class="col-md-10 col-sm-9 col-xs-12">
+                                <label type="text" class="form-control">
+                                      {{news?.newId}}
+                                </label>
+                              </div>
+                          </div>
+                            <!-- Tác giả -->
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Tác giả</label> 
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="text" class="form-control">
+                                        {{news?.author}}
+                                  </label>
+                                </div>
+                            </div>
+                            <!-- Tiêu đề -->
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Tiêu đề</label> 
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="text" class="form-control">
+                                        {{news?.title}}
+                                  </label>
+                                </div>
+                            </div>
+                            <!-- Nội dung -->
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Nội dung</label> 
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <div  style="height: 250px;
+                                    overflow: auto;
+                                    border: 1px solid #CCCCCC;
+                                    margin: 1em 0;" disabled
+                                     type="text" [innerHTML]="news?.content" class="form-control"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

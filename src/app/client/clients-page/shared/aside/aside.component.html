@@ -1,0 +1,67 @@
+<aside id="aside">
+    <!-- <section class="section section-sublink">
+        <div class="section-header"><span class="section-title">Danh mục cho thuê</span></div>
+        <ul>
+            <li><a href="https://phongtro123.com/cho-thue-phong-tro" title="Cho thuê phòng trọ">Cho thuê
+                    phòng trọ <span class="count">(51.979)</span></a></li>
+            <li><a href="https://phongtro123.com/nha-cho-thue" title="Cho thuê nhà nguyên căn">Cho thuê
+                    nhà nguyên căn <span class="count">(9.623)</span></a></li>
+            <li><a href="https://phongtro123.com/cho-thue-can-ho" title="Cho thuê căn hộ">Cho thuê căn
+                    hộ <span class="count">(9.660)</span></a></li>
+            <li class="sub"><a href="https://phongtro123.com/cho-thue-can-ho-chung-cu-mini"
+                    title="Cho Thuê Căn Hộ Chung Cư Mini">Cho thuê căn hộ mini</a></li>
+            <li class="sub"><a href="https://phongtro123.com/cho-thue-can-ho-dich-vu"
+                    title="Cho Thuê Căn Hộ Dịch Vụ">Cho thuê căn hộ dịch vụ</a></li>
+            <li><a href="https://phongtro123.com/cho-thue-mat-bang" title="Cho thuê mặt bằng">Cho thuê
+                    mặt bằng <span class="count">(2.147)</span></a></li>
+            <li><a href="https://phongtro123.com/tim-nguoi-o-ghep" title="Tìm người ở ghép">Tìm người ở
+                    ghép <span class="count">(15.799)</span></a></li>
+        </ul>
+    </section> -->
+    <section class="section section-aside-tinmoidang">
+        <div class="section-header"><span class="section-title">Tin mới đăng</span></div>
+        <ul class="post-listing aside clearfix">
+            <li class="post-item clearfix tin-vip vip2" post-id="585197" *ngFor="let article of articles">
+                    <a routerLink="/detail-article/{{article.articleId}}">
+                    <img class="lazy" src="{{article.image}}" alt="" height="75" width="75" layout="responsive">
+                    <div class="post-meta">
+                        <h4 class="post-title" style="color: #f60;">
+                            <span class="star star-3"></span>{{article.title}}
+                        </h4>
+                            <span class="post-price">{{article.roomPrice}} triệu/tháng</span>
+                            <span class="post-price" style="color: rgb(133, 125, 16);">Diện tích: {{article.acreage}}m2</span>
+                    </div></a>
+            </li>
+        </ul>
+    </section>
+    <section class="section">
+        <!-- <center> -->
+        <a target="_blank"><img
+                alt="Xem kết quả xổ số tự chọn Mega 6/45 Vietlott mới nhất"
+                title="Xem kết quả xổ số tự chọn Mega 6/45 Vietlott mới nhất"
+                src="https://image.thanhnien.vn/768/uploaded/thanhthuy/2020_07_25/kqxs2-4-6_jssz_rihu.jpg"></a>
+        <!-- </center> -->
+    </section>
+    <section class="section section-aside-tinmoidang">
+        <div class="section-header" [ngStyle]="{'margin-botttom':'10px'}"><span class="section-title">Bài viết mới</span></div>
+        <ul class="blog-listing aside clearfix">
+            <article class="article-item clearfix" *ngFor="let newpaper of newpapers">
+                    <a routerLink="/detail-newpaper/{{newpaper.newId}}">
+                    <figure><img class="lazy"
+                            src="{{newpaper.image}}">
+                    </figure>
+                    <div class="article-meta">
+                        <h6 class="article-title">{{newpaper.title}}</h6>
+                    </div></a>
+            </article>
+        </ul>
+    </section>
+    <section class="section section-sublink">
+        <div class="section-header"><span class="section-title">Có thể bạn quan tâm</span></div>
+        <ul>
+            <li><a title="Mẫu hợp đồng cho thuê phòng trọ">Mẫu hợp đồng cho thuê phòng trọ</a></li>
+            <li><a title="Cẩn thận các kiểu lừa đảo khi thuê phòng trọ">Cẩn thận các kiểu lừa đảo khi thuê phòng trọ</a></li>
+            <li><a title="Kinh nghiệm thuê phòng trọ cho Sinh Viên">Kinh nghiệm thuê phòng trọ Sinh Viên</a></li>
+        </ul>
+    </section>
+</aside>

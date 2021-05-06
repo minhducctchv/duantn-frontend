@@ -1,0 +1,120 @@
+<div id="webpage">
+    <div class="container-fluid">
+        <div class="row" style="margin-left: -250px;">
+            <main role="main" class="ml-sm-auto col-lg-10" >
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Quản lý tin tức</h1>
+
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div id="hic">
+                            <div id="demo-2">
+                                <input class="search" type="search" placeholder="Tìm kiếm" style="border: 1px solid #e6e6e6;">
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Lọc theo ngày
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item"
+                                    href="https://phongtro123.com/quan-ly/tin-dang.html?status=all&amp;package=vip50">
+                                    Ngày tăng dần</a>
+                                <a class="dropdown-item"
+                                    href="https://phongtro123.com/quan-ly/tin-dang.html?status=all&amp;package=vip30">
+                                    Ngày giảm dần</a>
+                            </div>
+                        </div>
+                        <div class="dropdown mr-1">
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Lọc theo trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" (click)="getAllNewsPaper()">Tất cả</button>
+                                <button class="dropdown-item" (click)="getAllActiveOrHiddenNewsPaper(false)">Tin đang hiện</button>
+                                <button class="dropdown-item" (click)="getAllActiveOrHiddenNewsPaper(true)">Tin đã ẩn</button>
+                            </div>
+                        </div>
+                        <a class="btn btn-success btn-sm d-none d-md-block"
+                            routerLink="create-newspaper">Đăng tin mới</a>
+                        <div class="d-lg-none" style="width: 100%;"><a class="btn btn-danger btn-block mt-3"
+                                href="https://phongtro123.com/quan-ly/dang-tin-moi.html">Đăng tin mới</a></div>
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table_post_listing table-bordered _table-hover">
+                            <thead>
+                                <tr>
+                                    <th [ngStyle]="{'text-align': 'center'}">Mã tin</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Ảnh đại diện</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Tiêu đề</th>
+                                    <!-- <th style="white-space: nowrap;">Nội dung</th> -->
+                                    <th [ngStyle]="{'text-align': 'center'}">Tác giả</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Trạng thái</th>
+                                    <th [ngStyle]="{'text-align': 'center'}">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="texttr" *ngFor="let new of news">
+                                    <td [ngStyle]="{'text-align': 'center'}">#{{new.newId}}</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <div class="post_thumb">
+                                            <a routerLink="detail-newspaper/{{new.newId}}">
+                                                <img src="{{new.image}}"></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a class="post_title" 
+                                            routerLink="detail-newspaper/{{new.newId}}"
+                                            style="color: #055699;">{{new.title}}
+                                        </a>
+                                        <span style="display: block; color: #999; margin-top: 10px;">
+                                            Cập nhật gần nhất: {{new.updateTime | date:'dd/MM/yyyy HH:mm'}}
+                                        </span>
+                                    </td>
+                                    <!-- <td  class="textnd">{{new.content}}</td>  -->
+                                    <td [ngStyle]="{'text-align': 'center'}">{{new.author}}</td>
+                                    <td *ngIf="new.deleted == true" [ngStyle]="{'color':'red', 'text-align': 'center'}">Đã ẩn</td>
+                                    <td *ngIf="new.deleted == false" [ngStyle]="{'color':'green', 'text-align': 'center'}">Đang hiện</td>
+                                    <td [ngStyle]="{'text-align': 'center'}">
+                                        <a routerLink="detail-newspaper/{{new.newId}}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                        <a routerLink="update-newspaper/{{new.newId}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a routerLink="." class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons" (click)="deleteNewpaper(new.newId)">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item" *ngFor="let item of arrayPage">
+                                  <a class="page-link" routerLink="/admin/newspaper" (click)="onPage(item)">{{item+1}}</a>
+                                  <!-- <a class="page-link" *ngIf="item <= 2 || item >= news[0].pages-1 " routerLink="/admin/newspaper" (click)="onPage(item)">{{item+1}}</a>
+                                  <a class="page-link" *ngIf="item > 2 && item < news[0].pages-1 " routerLink="/admin/newspaper" (click)="onPage(item)">**</a> -->
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div><!-- end webpage -->

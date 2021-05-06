@@ -1,0 +1,8 @@
+<tbody>
+  <tr *ngFor="let game of articles | paginate: { itemsPerPage: 5, currentPage: page }">
+    <!-- <td>{{i}}</td> -->
+    <td>{{game.articleId}}</td>
+    <!-- <td>{{game.genre}}</td> -->
+  </tr>
+</tbody>
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

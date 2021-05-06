@@ -1,0 +1,124 @@
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="side-bar">
+                    <div class="user-info">
+                      <!-- ẢNH NHÂN VIÊN -->
+                        <img class="img-profile img-circle img-responsive center-block" src="{{staff?.image}}" alt="">
+                        <ul class="meta list list-unstyled">
+                            <!-- TÊN NHÂN VIÊN -->
+                            <li class="name">{{staff?.name}}<br>
+                                <!-- CHỨC VỤ -->
+                                <label class="label label-info" *ngIf="staff?.role == true">Admin</label>
+                                <label class="label label-info" *ngIf="staff?.role == false">Super Admin</label>
+                            </li>
+                            <!-- <li class="email"><a href="#">hiepnguyen31899@gmail.com</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-panel">
+                    <h1 class="title">CHI TIẾT NHÂN VIÊN</h1>
+
+                    <div class="form-group">
+                      <!-- <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                          <button class="btn btn-primary" type="submit">Update Profile</button>
+                      </div> -->
+                      <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                          <button class="btn btn-success" type="submit" *ngIf="staff?.deleted == true" (click)="activeStaff()" [ngStyle]="{'margin-right':'10px'}">Kích hoạt nhân viên</button>
+                          <button class="btn btn-danger" type="submit" *ngIf="staff?.deleted == false" (click)="blockStaff()">Khóa nhân viên</button>
+                      </div>
+                    </div>
+                    
+                    <form class="form-horizontal">
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Thông tin cá nhân </h3>
+                            <!-- MÃ NHÂN VIÊN -->
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-3 col-xs-12 control-label">Mã nhân viên: </label> 
+                              <div class="col-md-10 col-sm-9 col-xs-12">
+                                  <label type="text" class="form-control" value="" tabindex="-1"> {{staff?.staffId}}</label>
+                              </div>
+                          </div>
+                            <!-- TÊN -->
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Họ tên: </label> 
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="text" class="form-control" tabindex="-1">{{staff?.name}}</label>
+                                </div>
+                            </div>
+                            <!-- CHỨC VỤ -->
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-3 col-xs-12 control-label">Chức vụ: </label> 
+                              <div class="col-md-10 col-sm-9 col-xs-12" *ngIf="staff?.role == false">
+                                  <label type="text" class="form-control" value="" tabindex="-1">Admin</label>
+                              </div>
+                              <div class="col-md-10 col-sm-9 col-xs-12" *ngIf="staff?.role == true">
+                                <label type="text" class="form-control" value="" tabindex="-1">Super Admin</label>
+                            </div>
+                            </div>
+                             <!-- Chứng minh nd - căn cước -->
+                            <div class="form-group">
+                                <label class="col-md-4 col-sm-3 col-xs-12 control-label">Chứng minh nd - căn cước: </label> 
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                  <label type="text" class="form-control" tabindex="-1">{{staff?.cardId}}</label>
+                                </div>
+                            </div>
+
+                            <!-- GIỚI TÍNH -->
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-3 col-xs-12 control-label">Giới tính: </label> 
+                              <div class="col-md-10 col-sm-9 col-xs-12" *ngIf="staff?.gender == true">
+                                  <label type="text" class="form-control" value="Nam" tabindex="-1"> Nam</label>
+                              </div>
+                              <div class="col-md-10 col-sm-9 col-xs-12" *ngIf="staff?.gender == false">
+                                <label type="text" class="form-control" value="Nữ" tabindex="-1" >Nữ</label>
+                            </div>
+                            </div>  
+                            
+                            <!-- Ngày sinh -->
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-3 col-xs-12 control-label">Ngày sinh: </label> 
+                              <div class="col-md-10 col-sm-9 col-xs-12">
+                                  <label type="text" class="form-control" tabindex="-1"  > {{staff?.birthday | date:'dd/MM/yyyy'}}</label>
+                              </div>
+                            </div> 
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Thông tin liên hệ</h3>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="email" class="form-control" tabindex="-1">{{staff?.email}}</label>
+                                </div>
+                            </div>
+
+                            <!-- Địa chỉ -->
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Địa chỉ</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="text" class="form-control" tabindex="-1">{{staff?.address}}</label>
+                                    <!-- <p class="help-block">Địa chỉ hiện tại</p> -->
+                                </div>
+                            </div>
+
+                            <!-- Số điện thoại -->
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Số điện thoại</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label type="url" class="form-control" tabindex="-1" >{{staff?.phone}}</label>
+                                    <!-- <p class="help-block">eg. https://www.linkedin.com/in/yourname</p> -->
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
